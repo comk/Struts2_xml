@@ -16,8 +16,16 @@
   <script type="text/javascript" src="common/js/register/bootstrap-datepicker.js"></script>
 
   <script type="text/javascript">
+
+    function btn_click(){
+      $.post("getcode.action",null,function(data){
+        $("#verifycodeimg").attr("src", "getcode.action");
+//        $("#verifycodeimg").val(data);
+      });
+    }
+
     $(document).ready(function(){
-      $('#text').datepicker({
+      $('#birthday').datepicker({
         weekStart: 7,
         startDate: "02/17/2015",
         endDate: "03/17/2015",
@@ -44,12 +52,11 @@
   </script>
 </head>
 <body>
-      <table>
+      <table align="center">
           <tr>
             <td>
               <s:textfield id="username" name="UserName" label="UserName" ></s:textfield>
             </td>
-
           </tr>
         <tr>
           <td>
@@ -64,12 +71,21 @@
         </tr>
         <tr>
           <td>
-            <input  type="text" id="text" class="form-control">
-
+            <s:textfield id="birthday" class="form-control" label="Birthday"></s:textfield>
           </td>
 
         </tr>
+        <tr>
+          <td>
+            <s:textfield id="verifycodetext" class="form-control" label="Birthday"></s:textfield>
+          </td>
+          <td>
+            <img id="verifycodeimg" src="getcode.action"
+                    />
 
+            <button id="refreshcode" type="button" onclick="btn_click()">点击刷新</button>
+          </td>
+        </tr>
 
       </table>
 

@@ -1,12 +1,19 @@
 package com.comk.project.first.action;
 
 import com.comk.project.first.utils.ErrorCode;
+import com.comk.project.first.utils.ImageUtils;
 import com.comk.project.first.utils.TextUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 /**
  * Created by daihai on 2015/2/15.
@@ -71,6 +78,23 @@ public class LoginAction extends ActionSupport {
         }
         return "error";
     }
+
+
+    public String getVerifyCode(){
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        String checkCode = ImageUtils.getInstance().getCheckCodeImage("ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789", 4, output);
+        this.message = new ByteArrayInputStream(output.toByteArray());
+        try {
+            output.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return SUCCESS;
+    }
+
 
 
     public String doregister(){

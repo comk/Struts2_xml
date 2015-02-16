@@ -26,6 +26,13 @@
 
                 </action>
 
+                <action name="getcode" class="com.comk.project.first.action.LoginAction" method="getVerifyCode">
+                        <result name="success" type="stream" >
+                                <param name="contentType">image/jpeg</param>
+                                <param name="inputName">message</param>
+                        </result>
+                </action>
+
                 <action name="validateReg" class="com.comk.project.first.action.LoginAction" method="dovalidateReg">
 
                         <result name="error" type="stream"></result>
