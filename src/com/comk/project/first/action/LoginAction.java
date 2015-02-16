@@ -64,15 +64,12 @@ public class LoginAction extends ActionSupport {
             msg = -1;
         }
 
-    if(msg >= 0) {
         try {
             message = new ByteArrayInputStream(String.valueOf(msg).getBytes("utf-8"));
         } catch (Exception ex) {
 
         }
         return "error";
-    }else
-        return SUCCESS;
     }
 
 

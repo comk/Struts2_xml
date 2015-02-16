@@ -7,7 +7,7 @@
 <struts>
 
         <!-- struts2的action必须放在一个指定的包空间下定义 -->
-        <package name="login" extends="struts-default">
+        <package name="login" extends="struts-default" >
                 <!-- 定义处理请求URL为login.action的Action -->
                 <action name="login" class="com.comk.project.first.action.LoginAction" method="dologin">
                         <!-- 定义处理结果字符串和资源之间的映射关系 -->
@@ -19,7 +19,7 @@
                                 <param name="contentType">text/html;charset=UTF-8</param>
                                 <param name="inputName">message</param>
                         </result>
-                        <result name="success">userinfo.jsp</result>
+                        <result name="success" type="redirect">/user/showuserinfo.action</result>
                 </action>
 
                 <action name="register" class="com.comk.project.first.action.LoginAction" method="doregister">
@@ -29,11 +29,17 @@
                 <action name="validateReg" class="com.comk.project.first.action.LoginAction" method="dovalidateReg">
 
                         <result name="error" type="stream"></result>
-                        <result name="success" >userinfo.jsp</result>
+                        <result name="success" type="redirect">/user/showuserinfo.action</result>
 
                 </action>
         </package>
 
+        <package name="userinfo" extends="struts-default" namespace="/user">
+                <action name="showuserinfo" class="com.comk.project.first.action.UserInfoAction" method="getUserInfo">
+                        <result name="error" >index.jsp</result>
+                        <result name="success">/userinfo.jsp</result>
+                </action>
+        </package>
 
 
 </struts>
