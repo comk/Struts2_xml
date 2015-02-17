@@ -20,8 +20,44 @@
     function btn_click(){
       $.post("getcode.action",null,function(data){
         $("#verifycodeimg").attr("src", "getcode.action");
-//        $("#verifycodeimg").val(data);
       });
+    }
+
+
+
+
+    function btn_submit(){
+      var username = $("#username").val();
+      var userpwd = $("#userpwd").val();
+      var userpwd2 = $("#userpwd2").val();
+      var data = $("#birthday").val();
+      var verifycode = $("#verifycodetext").val();
+
+      if(username.length >=6){
+        if(userpwd.length >= 6){
+          if(userpwd2.length >=6){
+            if(userpwd == userpwd2){
+              $.post("validateReg.action",{username:username,userpwd:userpwd,vcode:verifycode},function(data){
+                if(data < 0){
+                  location.href="showuserinfo.action";
+                }else{
+                  alert(data);
+                }
+              });
+            }else{
+              alert("两次密码输入不一致！");
+            }
+          }else{
+            alert("重复密码不能为空！");
+          }
+        }else{
+          alert("密码不能为空！");
+        }
+      }else{
+        alert("用户名不能为空！");
+      }
+
+
     }
 
     $(document).ready(function(){
@@ -87,6 +123,14 @@
           </td>
         </tr>
 
+
+        <tr>
+
+          <td>
+            <button type="button" onclick="btn_submit()" >提交</button>
+
+          </td>
+        </tr>
       </table>
 
 </body>

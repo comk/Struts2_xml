@@ -23,10 +23,10 @@
                 </action>
 
                 <action name="register" class="com.comk.project.first.action.LoginAction" method="doregister">
-
+                        <result name="success">/register.jsp</result>
                 </action>
 
-                <action name="getcode" class="com.comk.project.first.action.LoginAction" method="getVerifyCode">
+                <action name="getcode" class="com.comk.project.first.action.LoginAction" method="getCode">
                         <result name="success" type="stream" >
                                 <param name="contentType">image/jpeg</param>
                                 <param name="inputName">message</param>
@@ -35,7 +35,10 @@
 
                 <action name="validateReg" class="com.comk.project.first.action.LoginAction" method="dovalidateReg">
 
-                        <result name="error" type="stream"></result>
+                        <result name="error" type="stream">
+                                <param name="contentType">text/html;charset=UTF-8</param>
+                                <param name="inputName">message</param>
+                        </result>
                         <result name="success" type="redirect">/user/showuserinfo.action</result>
 
                 </action>
