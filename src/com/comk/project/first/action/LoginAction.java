@@ -25,6 +25,7 @@ public class LoginAction extends ActionSupport{
     private InputStream message;
     private String username;
     private String userpwd;
+    private String date;
     private int msg;
     private String verifyCode = "default";
     private String vcode;
@@ -39,6 +40,14 @@ public class LoginAction extends ActionSupport{
     {
         System.out.println("get code ....  ------ ");
         return verifyCode;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setVerifyCode(String verifyCode) {
@@ -108,16 +117,16 @@ public class LoginAction extends ActionSupport{
         String checkCode = ImageUtils.getInstance().getCheckCodeImage("ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789", 4, output);
 
 
-        setVerifyCode(checkCode);
+//        setVerifyCode(checkCode);
 
+
+        ActionContext.getContext().getSession().put("code", checkCode);
         this.message = new ByteArrayInputStream(output.toByteArray());
         try {
             output.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return SUCCESS;
     }
 
@@ -128,9 +137,10 @@ public class LoginAction extends ActionSupport{
     }
 
     public String dovalidateReg(){
-        System.out.println("verifyCode ....  ------ " + verifyCode);
+        System.out.println("verifyCode ....  ------ " + ActionContext.getContext().getSession().get("code"));
         System.out.println("getVcode ....  ------ " + getVcode());
-        if(verifyCode.equals(getVcode())){
+        System.out.println("getDate ....  ------ " + getDate());
+        if(ActionContext.getContext().getSession().get("code").toString().equalsIgnoreCase(getVcode())){
             if(TextUtils.isEmpty(getUsername())){
                 msg = ErrorCode.ERROR_CODE_LOGIN_USERNAME_NOT_EXIST;
             }else if(TextUtils.isEmpty(getUserpwd())){
@@ -146,7 +156,6 @@ public class LoginAction extends ActionSupport{
         }catch (Exception ex){
 
         }
-
         return ERROR;
     }
 
